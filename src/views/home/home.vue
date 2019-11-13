@@ -45,7 +45,11 @@
 
 <script>
 import tabBar from '@/components/tabBar'
-import axios from 'axios'
+import {
+    getsliders,
+    getCategories,
+    getFloors
+} from '@/http/index.js'
 export default {
     data() {
         return {
@@ -65,33 +69,18 @@ export default {
     },
     methods: {
         fetchSliders() {
-            axios.get('http://www.lovegf.cn:9527/api/home/sliders').then(res => {
-                const {
-                    data
-                } = res
-                if (data.status == 0) {
-                    this.sliderList = data.data
-                }
+            getsliders().then(res => {
+                this.sliderList = res
             })
         },
         fetchCategories() {
-            axios.get('http://www.lovegf.cn:9527/api/home/category').then(res => {
-                const {
-                    data
-                } = res
-                if (data.status == 0) {
-                    this.categoryList = data.data
-                }
+            getCategories().then(res => {
+                this.categoryList = res
             })
         },
         fetchFloors() {
-            axios.get('http://www.lovegf.cn:9527/api/home/floorlist').then(res => {
-                const {
-                    data
-                } = res
-                if (data.status == 0) {
-                    this.floorList = data.data
-                }
+            getFloors().then(res => {
+                this.floorList = res
             })
         },
         pageScroll() {
