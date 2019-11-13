@@ -5,8 +5,8 @@ import store from './store'
 
 import 'lib-flexible'   //rem布局
 
-import { Tabbar, TabbarItem,Icon } from 'vant';
-Vue.use(Tabbar).use(TabbarItem).use(Icon);
+import { Tabbar, TabbarItem,Icon,Swipe, SwipeItem } from 'vant';
+Vue.use(Tabbar).use(TabbarItem).use(Icon).use(Swipe).use(SwipeItem);
 
 Vue.config.productionTip = false
 new Vue({
