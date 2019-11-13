@@ -3,6 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import 'lib-flexible'   //rem布局
+
 import { Tabbar, TabbarItem,Icon } from 'vant';
 Vue.use(Tabbar).use(TabbarItem).use(Icon);
 
