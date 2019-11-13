@@ -1,7 +1,7 @@
 <template>
 <div class="home-container">
     <!-- header区域 -->
-    <header class="home-header wrap">
+    <header class="home-header wrap" :class="{'active' : headerActive}">
         <i class="iconfont icon-caidan"></i>
         <div class="header-search">
             <span class="app-name">G</span>
@@ -106,6 +106,20 @@
 <script>
 import tabBar from '@/components/tabBar'
 export default {
+    data() {
+        return {
+            headerActive: false
+        }
+    },
+    mounted() {
+        window.addEventListener('scroll', this.pageScroll)
+    },
+    methods: {
+        pageScroll() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+            scrollTop > 100 ? this.headerActive = true : this.headerActive = false
+        }
+    },
     components: {
         tabBar
     }
