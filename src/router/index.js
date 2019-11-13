@@ -9,6 +9,10 @@ import user from '@/views/user/user.vue'
 
 const routes = [
   {
+    path:'/',
+    redirect:'/home'
+  },
+  {
     path:'/home',
     component:home
   },
