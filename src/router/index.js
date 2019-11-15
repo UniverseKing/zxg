@@ -6,6 +6,7 @@ import home from '@/views/home/home.vue'
 import category from '@/views/category/category.vue'
 import shopcart from '@/views/shopcart/shopcart.vue'
 import user from '@/views/user/user.vue'
+import productList from '@/views/product-list/product-list.vue'
 
 const routes = [
   {
@@ -27,6 +28,10 @@ const routes = [
   {
     path:'/user',
     component:user
+  },
+  {
+    path:'/product-list',
+    component:productList
   }
 ]
 

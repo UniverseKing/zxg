@@ -13,7 +13,9 @@
     <!-- 轮播图区域 -->
     <van-swipe :autoplay="3000" indicator-color="white" class="swiper-container">
         <van-swipe-item v-for='(item,index) in sliderList' :key='index'>
-            <img :src="item.imgUrl" class="swiper_img" alt="">
+            <router-link tag="a" :to="`/product-list?categoryId=${item.categoryId}`">
+                <img :src="item.imgUrl" class="swiper_img" alt="">
+            </router-link>
         </van-swipe-item>
     </van-swipe>
     <!-- 分类入口 -->
