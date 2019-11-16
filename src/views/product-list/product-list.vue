@@ -4,7 +4,7 @@
     <div class="product-list-header">
         <!-- 头部搜索 -->
         <header class="category-header wrap">
-            <i class="iconfont icon-left"></i>
+            <i class="iconfont icon-left" @click="goBack"></i>
             <div class="header-search">
                 <i class="iconfont icon-search"></i>
                 <input type="text" class="search-title" />
@@ -13,18 +13,17 @@
         </header>
         <!-- 排序 -->
         <section class="select-menu">
-            <div class="select-item">默认排序</div>
-            <div class="select-item">
-                升序
-                <i class="iconfont icon-up1"></i>
+            <div class="select-item" :class="{'active' : orderBy === 'default'}" data-orderBy="default" @click="selectOrder($event)">
+                默认排序
+            </div>
+            <div class="select-item" :class="{'active' : orderBy === 'price_asc'}" data-orderBy="price_asc" @click="selectOrder($event)">
+                升序<i class="iconfont icon-up1" :class="{'active' : orderBy === 'price_asc'}"></i>
+            </div>
+            <div class="select-item" :class="{'active' : orderBy === 'price_desc'}" data-orderBy="price_desc" @click="selectOrder($event)">
+                降序<i class="iconfont icon-down1" :class="{'active' : orderBy === 'price_desc'}"></i>
             </div>
             <div class="select-item">
-                降序
-                <i class="iconfont icon-down1"></i>
-            </div>
-            <div class="select-item">
-                筛选
-                <i class="iconfont icon-shaixuan"></i>
+                筛选<i class="iconfont icon-shaixuan"></i>
             </div>
         </section>
     </div>
@@ -49,8 +48,21 @@
 export default {
     data() {
         return {
-            categoryId: this.$route.query.categoryId
-        };
+            categoryId: this.$route.query.categoryId,
+            orderBy: 'default'
+        }
+    },
+    methods: {
+        goBack() {
+            this.$router.go(-1)
+        },
+        selectOrder(e) {
+            let orderBy = e.currentTarget.getAttribute('data-orderBy')
+            if (orderBy === this.orderBy) {
+                return
+            }
+            this.orderBy = orderBy
+        }
     }
 };
 </script>
@@ -149,6 +161,10 @@ export default {
                 border-top: 1px solid #dcdcdc;
                 border-bottom: 1px solid #dcdcdc;
 
+                &.active {
+                    color: $red;
+                }
+
                 .iconfont {
                     &.icon-down1 {
                         color: #999;
@@ -176,6 +192,7 @@ export default {
 
     .product-list {
         width: 100%;
+
         .product-container {
             position: absolute;
             left: 0;
