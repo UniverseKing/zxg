@@ -2,16 +2,16 @@
 <div class="product-detail">
     <!-- 头部区域 -->
     <header class="detail-nav">
-        <i class="iconfont icon-left"></i>
+        <i class="iconfont icon-left" @click="goBack"></i>
         <div class="nav-list">
-            <span class="active">
-                <i class="iconfont icon-location"></i>商品
+            <span :class="{'active' : navIndex === 0}" data-type="product" @click="scrollToView($event)">
+                <i class="iconfont icon-location" v-show="navIndex === 0"></i>商品
             </span>
-            <span>
-                <i class="iconfont icon-location"></i>商品详情
+            <span :class="{'active' : navIndex === 1}" data-type="detail" @click="scrollToView($event)">
+                <i class="iconfont icon-location" v-show="navIndex === 1"></i>商品详情
             </span>
-            <span>
-                <i class="iconfont icon-location"></i>商品推荐
+            <span :class="{'active' : navIndex === 2}" data-type="recommend" @click="scrollToView($event)">
+                <i class="iconfont icon-location" v-show="navIndex === 2"></i>商品推荐
             </span>
         </div>
         <i class="iconfont icon-More"></i>
@@ -23,7 +23,28 @@
 export default {
     data() {
         return {
-            id: this.$route.params.id
+            id: this.$route.params.id,
+            navIndex: 0 //导航索引
+        }
+    },
+    methods: {
+        goBack() {
+            this.$router.go(-1)
+        },
+        scrollToView(e) {
+            let $type = e.target.getAttribute('data-type')
+            console.log($type)
+            switch ($type) {
+                case 'product':
+                    this.navIndex = 0
+                    break
+                case 'detail':
+                    this.navIndex = 1
+                    break
+                case 'recommend':
+                    this.navIndex = 2
+                    break
+            }
         }
     }
 }
