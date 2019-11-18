@@ -16,6 +16,20 @@
         </div>
         <i class="iconfont icon-More"></i>
     </header>
+    <!-- 轮播图 -->
+    <section class="product-focus">
+        <van-swipe :autoplay="3000" indicator-color="white" class="swiper-container">
+            <van-swipe-item>
+                <img src="http://img.happymmall.com/9cb817d9-9b32-4a05-aea3-18c221451e80.jpg" class="swiper_img" alt="">
+            </van-swipe-item>
+            <van-swipe-item>
+                <img src="http://img.happymmall.com/f22196a7-9211-43dd-8751-297bc0e1b87f.jpg" class="swiper_img" alt="">
+            </van-swipe-item>
+            <van-swipe-item>
+                <img src="http://img.happymmall.com/4a8269ae-28e7-4367-800c-e7f7edaa8e86.jpg" class="swiper_img" alt="">
+            </van-swipe-item>
+        </van-swipe>
+    </section>
 </div>
 </template>
 
@@ -88,6 +102,17 @@ export default {
                 padding-right: 8px;
                 font-size: 28px;
                 color: $red;
+            }
+        }
+    }
+
+    .product-focus {
+        margin-top: 88px;
+
+        .swiper-container {
+            .swiper_img {
+                width: 100%;
+                height: 700px;
             }
         }
     }
