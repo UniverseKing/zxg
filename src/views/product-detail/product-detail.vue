@@ -30,6 +30,15 @@
             </van-swipe-item>
         </van-swipe>
     </section>
+    <!-- 详情信息 -->
+    <section class="detail-info">
+        <p class="detail-info-name">佐娜 简约现代真皮沙发组合欧式沙发客厅整装牛皮沙发一字沙发L型</p>
+        <p class="detail-info-subtitle">头层真皮沙发</p>
+        <div>
+            <span class="detail-info-price">￥9998</span>
+            <span class="detail-info-stock">库存5件</span>
+        </div>
+    </section>
 </div>
 </template>
 
@@ -113,6 +122,38 @@ export default {
             .swiper_img {
                 width: 100%;
                 height: 700px;
+            }
+        }
+    }
+
+    .detail-info {
+        width: 100%;
+        padding: 20px 30px;
+        font-size: 30px;
+        box-sizing: border-box;
+
+        .detail-info-name {
+            font-size: 40px;
+            color: #333;
+        }
+
+        .detail-info-subtitle {
+            padding: 10px 0;
+            font-size: 28px;
+            color: #999;
+        }
+
+        div {
+            @include fj;
+            height: 70px;
+            line-height: 80px;
+            padding: 10px 0;
+            font-size: 32px;
+            color: #999;
+
+            .detail-info-price {
+                color: $red;
+                font-size: 44px;
             }
         }
     }
