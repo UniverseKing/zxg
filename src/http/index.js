@@ -62,3 +62,19 @@ export const getProcuctList = (params) => {
         }
     })
 }
+
+/**
+ * 商品详情
+ */
+export const getProcuctDetail = (params) => {
+    return axios.get('/product/detail',{
+        params
+    }).then(res => {
+        const { data } = res
+        if (data.status == 0) {
+            return data.data
+        } else {
+            Toast.fail(data.msg)
+        }
+    })
+}
