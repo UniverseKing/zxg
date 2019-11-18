@@ -30,13 +30,26 @@
             </van-swipe-item>
         </van-swipe>
     </section>
-    <!-- 详情信息 -->
+    <!-- 商品介绍信息 -->
     <section class="detail-info">
         <p class="detail-info-name">佐娜 简约现代真皮沙发组合欧式沙发客厅整装牛皮沙发一字沙发L型</p>
         <p class="detail-info-subtitle">头层真皮沙发</p>
         <div>
             <span class="detail-info-price">￥9998</span>
             <span class="detail-info-stock">库存5件</span>
+        </div>
+    </section>
+    <!-- 商品详情 -->
+    <section class="detail-content" ref="detailContent" id="content">
+        <p class="detail-gap"></p>
+        <ul>
+            <li>概述</li>
+            <li>参数</li>
+            <li>安装服务</li>
+            <li>常见问题</li>
+        </ul>
+        <div>
+            <p><img alt="A973_01.png" src="http://img.happymmall.com/8d83d44f-1765-4e99-9afe-8bea41ac8867.png" width="790" height="796"><img alt="A973_03.png" src="http://img.happymmall.com/985d7567-6162-4b35-a689-045a0564643c.png" width="790" height="757"><img alt="A973_05.png" src="http://img.happymmall.com/cb79ca69-8f52-466b-b94e-55f4109ba31a.png" width="790" height="761"><img alt="A973_13.png" src="http://img.happymmall.com/18ee59df-89cb-4e80-9875-6544108e4587.png" width="790" height="792"><img alt="A973_14.png" src="http://img.happymmall.com/08abd77b-4615-4b93-9465-af748d640a85.png" width="790" height="969"><img alt="A973_15.png" src="http://img.happymmall.com/7e33d43a-a946-4d44-a68d-3050eeb1e9cc.png" width="790" height="716"><br></p>
         </div>
     </section>
 </div>
@@ -154,6 +167,51 @@ export default {
             .detail-info-price {
                 color: $red;
                 font-size: 44px;
+            }
+        }
+    }
+
+    .detail-content {
+        width: 100%;
+
+        .detail-gap {
+            width: 100%;
+            height: 20px;
+            background: #eee;
+        }
+
+        ul {
+            @include fj;
+            width: 100%;
+            margin: 20px 0;
+
+            li {
+                flex: 1;
+                padding: 10px 0;
+                text-align: center;
+                font-size: 30px;
+                border-right: 1px solid #999;
+                box-sizing: border-box;
+
+                &:last-child {
+                    border-right: none;
+                }
+            }
+        }
+
+        div {
+            width: 100%;
+            overflow: hidden;
+
+            p {
+                width: 100%;
+                font-size: 40px;
+                text-align: center;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
             }
         }
     }
