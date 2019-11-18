@@ -31,7 +31,7 @@
     <!-- 商品列表 -->
     <section class="product-list">
         <div class="product-container">
-            <van-card v-for='(item,index) in productList' :key='index' :num="item.stock" :price="item.price" :desc="item.subtitle" :title="item.name" :thumb="item.imageHost+item.mainImage" :origin-price="item.originalPrice" />
+            <van-card v-for='(item,index) in productList' :key='index' :num="item.stock" :price="item.price" :desc="item.subtitle" :title="item.name" :thumb="item.imageHost+item.mainImage" :origin-price="item.originalPrice" @click="goDetail(item.id)" />
         </div>
     </section>
 </div>
@@ -76,6 +76,9 @@ export default {
                 return
             }
             this.orderBy = orderBy
+        },
+        goDetail(id) {
+            this.$router.push('/product/' + id)
         }
     }
 };
