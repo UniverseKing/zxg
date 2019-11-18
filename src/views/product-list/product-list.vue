@@ -31,28 +31,42 @@
     <!-- 商品列表 -->
     <section class="product-list">
         <div class="product-container">
-            <van-card num="2" price="2.00" desc="描述信息" title="商品标题" thumb="https://img.yzcdn.cn/vant/t-thirt.jpg" origin-price="10.00" />
-            <van-card num="2" price="2.00" desc="描述信息" title="商品标题" thumb="https://img.yzcdn.cn/vant/t-thirt.jpg" origin-price="10.00" />
-            <van-card num="2" price="2.00" desc="描述信息" title="商品标题" thumb="https://img.yzcdn.cn/vant/t-thirt.jpg" origin-price="10.00" />
-            <van-card num="2" price="2.00" desc="描述信息" title="商品标题" thumb="https://img.yzcdn.cn/vant/t-thirt.jpg" origin-price="10.00" />
-            <van-card num="2" price="2.00" desc="描述信息" title="商品标题" thumb="https://img.yzcdn.cn/vant/t-thirt.jpg" origin-price="10.00" />
-            <van-card num="2" price="2.00" desc="描述信息" title="商品标题" thumb="https://img.yzcdn.cn/vant/t-thirt.jpg" origin-price="10.00" />
-            <van-card num="2" price="2.00" desc="描述信息" title="商品标题" thumb="https://img.yzcdn.cn/vant/t-thirt.jpg" origin-price="10.00" />
-            <van-card num="2" price="2.00" desc="描述信息" title="商品标题" thumb="https://img.yzcdn.cn/vant/t-thirt.jpg" origin-price="10.00" />
+            <van-card v-for='(item,index) in productList' :key='index' :num="item.stock" :price="item.price" :desc="item.subtitle" :title="item.name" :thumb="item.imageHost+item.mainImage" :origin-price="item.originalPrice" />
         </div>
     </section>
 </div>
 </template>
 
 <script>
+import {
+    getProcuctList
+} from '@/http/index.js'
 export default {
     data() {
         return {
             categoryId: this.$route.query.categoryId,
-            orderBy: 'default'
+            orderBy: 'default',
+            pageNum: 1,
+            pageSize: 20,
+            productList: []
         }
     },
+    created() {
+        this.fetchProductlist()
+    },
     methods: {
+        fetchProductlist() {
+            const params = {
+                categoryId: this.categoryId,
+                orderBy: 'default',
+                pageNum: this.pageNum,
+                pageSize: this.pageSize
+            }
+            getProcuctList(params).then(res => {
+                console.log(res)
+                this.productList = res.list
+            })
+        },
         goBack() {
             this.$router.go(-1)
         },

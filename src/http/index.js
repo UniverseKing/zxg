@@ -2,7 +2,8 @@ import axios from 'axios'
 import { Toast } from 'vant'
 
 // 配置请求的根域名
-axios.defaults.baseURL = 'http://www.lovegf.cn:9527/api/'
+// axios.defaults.baseURL = 'http://www.lovegf.cn:9527/api/'
+axios.defaults.baseURL = 'http://127.0.0.1:9527/api/'
 
 /**
  * 轮播图
@@ -37,6 +38,22 @@ export const getCategories = () => {
  */
 export const getFloors = () => {
     return axios.get('/home/floorlist').then(res => {
+        const { data } = res
+        if (data.status == 0) {
+            return data.data
+        } else {
+            Toast.fail(data.msg)
+        }
+    })
+}
+
+/**
+ * 商品列表
+ */
+export const getProcuctList = (params) => {
+    return axios.get('/product/list',{
+        params
+    }).then(res => {
         const { data } = res
         if (data.status == 0) {
             return data.data
