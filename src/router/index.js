@@ -16,27 +16,45 @@ const routes = [
   },
   {
     path: '/home',
-    component: home
+    component: home,
+    meta: {
+      index: 1
+    }
   },
   {
     path: '/category',
-    component: category
+    component: category,
+    meta: {
+      index: 1
+    }
   },
   {
     path: '/shopcart',
-    component: shopcart
+    component: shopcart,
+    meta: {
+      index: 1
+    }
   },
   {
     path: '/user',
-    component: user
+    component: user,
+    meta: {
+      index: 1
+    }
   },
   {
     path: '/product-list',
-    component: productList
+    component: productList,
+    meta: {
+      index: 2
+    }
   },
   {
     path: '/product/:id',
-    component: productDetail
+    component: productDetail,
+    meta: {
+      index: 3
+    }
   }
 ]
 
