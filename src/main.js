@@ -5,8 +5,9 @@ import store from './store'
 
 import 'lib-flexible'   //rem布局
 
-import { Tabbar, TabbarItem,Icon,Swipe, SwipeItem,Toast,Card } from 'vant';
-Vue.use(Tabbar).use(TabbarItem).use(Icon).use(Swipe).use(SwipeItem).use(Toast).use(Card);
+import { Tabbar, TabbarItem, Icon, Swipe, SwipeItem, Toast, Card, GoodsAction, GoodsActionIcon, GoodsActionButton, Sku } from 'vant';
+
+Vue.use(Tabbar).use(TabbarItem).use(Icon).use(Swipe).use(SwipeItem).use(Toast).use(Card).use(GoodsAction).use(GoodsActionIcon).use(GoodsActionButton).use(Sku);
 
 import '@/common/style/base.scss'
 
