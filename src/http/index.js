@@ -2,8 +2,8 @@ import axios from 'axios'
 import { Toast } from 'vant'
 
 // 配置请求的根域名
-// axios.defaults.baseURL = 'http://www.lovegf.cn:9527/api/'
-axios.defaults.baseURL = 'http://127.0.0.1:9527/api/'
+axios.defaults.baseURL = 'http://www.lovegf.cn:9527/api/'
+// axios.defaults.baseURL = 'http://127.0.0.1:9527/api/'
 
 /**
  * 轮播图

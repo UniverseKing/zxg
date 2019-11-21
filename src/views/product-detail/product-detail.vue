@@ -117,10 +117,10 @@ export default {
     },
     methods: {
         onBuyClicked() {
-            console.log("onBuyClicked");
+            // console.log("onBuyClicked");
         },
         onAddCartClicked() {
-            console.log("onAddCartClicked");
+            // console.log("onAddCartClicked");
         },
         addToCar() {
             this.show = true;
@@ -145,7 +145,7 @@ export default {
         },
         scrollToView(e) {
             let $type = e.target.getAttribute("data-type");
-            console.log($type);
+            // console.log($type);
             switch ($type) {
                 case "product":
                     this.navIndex = 0;

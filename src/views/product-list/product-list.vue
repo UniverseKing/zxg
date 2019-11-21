@@ -63,7 +63,7 @@ export default {
                 pageSize: this.pageSize
             }
             getProcuctList(params).then(res => {
-                console.log(res)
+                // console.log(res)
                 this.productList = res.list
             })
         },
