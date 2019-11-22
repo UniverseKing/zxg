@@ -8,6 +8,7 @@ import shopcart from '@/views/shopcart/shopcart.vue'
 import user from '@/views/user/user.vue'
 import productList from '@/views/product-list/product-list.vue'
 import productDetail from '@/views/product-detail/product-detail.vue'
+import login from '@/views/login/login.vue'
 
 const routes = [
   {
@@ -54,6 +55,13 @@ const routes = [
     component: productDetail,
     meta: {
       index: 3
+    }
+  },
+  {
+    path: '/login',
+    component: login,
+    meta: {
+      index: 2
     }
   }
 ]

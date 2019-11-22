@@ -58,7 +58,7 @@ export default {
         fetchProductlist() {
             const params = {
                 categoryId: this.categoryId,
-                orderBy: 'default',
+                orderBy: this.orderBy,
                 pageNum: this.pageNum,
                 pageSize: this.pageSize
             }
@@ -76,6 +76,7 @@ export default {
                 return
             }
             this.orderBy = orderBy
+            this.fetchProductlist()
         },
         goDetail(id) {
             this.$router.push('/product/' + id)

@@ -2,13 +2,13 @@
 <div class="home-container">
     <!-- header区域 -->
     <header class="home-header wrap" :class="{'active' : headerActive}">
-        <i class="iconfont icon-caidan"></i>
+        <router-link to="/category" tag="i" class="iconfont icon-caidan"></router-link >
         <div class="header-search">
             <span class="app-name">G</span>
             <i class="iconfont icon-search"></i>
             <span class="search-title">11.11随心所欲Go</span>
         </div>
-        <span>登录</span>
+        <router-link to="/login" tag="span">登录</router-link>
     </header>
     <!-- 轮播图区域 -->
     <van-swipe :autoplay="3000" indicator-color="white" class="swiper-container">
