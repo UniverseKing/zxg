@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 
 import 'lib-flexible'   //rem布局
+import fastclick from 'fastclick'
+fastclick.attach(document.body) //解决移动端点击300ms延时
 
 import { Tabbar, TabbarItem, Icon, Swipe, SwipeItem, Toast, Card, GoodsAction, GoodsActionIcon, GoodsActionButton, Sku } from 'vant';
 

@@ -78,3 +78,17 @@ export const getProcuctDetail = (params) => {
         }
     })
 }
+
+/**
+ * 分类数据
+ */
+export const getcategoryData = () => {
+    return axios.get('/category/data').then(res => {
+        const { data } = res
+        if (data.status == 0) {
+            return data.data
+        } else {
+            Toast.fail(data.msg)
+        }
+    })
+}
