@@ -58,7 +58,7 @@
                     </g>
                 </svg>
 
-                <van-card v-for="(item,index) in productList" :key="index" :num="item.stock" :price="item.price" :desc="item.subtitle" :title="item.name" :thumb="item.imageHost + item.mainImage" :origin-price="item.originalPrice" />
+                <van-card v-for="(item,index) in productList" :key="index" :num="item.stock" :price="item.price" :desc="item.subtitle" :title="item.name" :thumb="item.imageHost + item.mainImage" :origin-price="item.originalPrice" @click="goDetail(item.id)" />
 
                 <!-- custom infinite spinner -->
                 <svg class="spinner" style="fill: #ec4949;" slot="infinite-spinner" viewBox="0 0 64 64">
@@ -107,18 +107,16 @@ export default {
     },
     methods: {
         refresh(done) {
-            console.log('下拉')
+            // console.log('下拉')
             this.pageNum = 1
             setTimeout(() => {
                 this.fetchProductList(done)
             }, 1500)
         },
         infinite(done) {
-            console.log('上拉')
+            // console.log('上拉')
             this.pageNum++
-            console.log(this)
             setTimeout(() => {
-                console.log(this)
                 this.fetchProductList(done)
             }, 1500)
         },

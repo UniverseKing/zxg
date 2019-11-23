@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="register">
     <!-- 导航区域 -->
     <z-header>注册</z-header>
     <section class="page">
@@ -54,7 +54,13 @@
 
 <script>
 import zHeader from '@/components/common/z-header.vue'
-import {removeSpace,formValidate} from '@/common/js/util.js'
+import {
+    removeSpace,
+    formValidate
+} from '@/common/js/util.js'
+import {
+    register
+} from '@/http/index.js'
 export default {
     data() {
         return {
@@ -106,21 +112,20 @@ export default {
         },
         clearText(e) {
             let $close = e.currentTarget.getAttribute('data-close')
-            console.log($close)
             this[$close] = ''
         },
         //下一步
         registerNext() {
-            if(!formValidate(this.username,'require') || !formValidate(this.password,'require')
-                || !formValidate(this.email,'require') || !formValidate(this.phone,'require')){
+            if (!formValidate(this.username, 'require') || !formValidate(this.password, 'require') ||
+                !formValidate(this.email, 'require') || !formValidate(this.phone, 'require')) {
                 this.errMsg = '请将表格填写完整'
                 return
             }
-            if(!formValidate(this.email,'email')){
+            if (!formValidate(this.email, 'email')) {
                 this.errMsg = '邮箱格式不正确'
                 return
             }
-            if(!formValidate(this.phone,'phone')){
+            if (!formValidate(this.phone, 'phone')) {
                 this.errMsg = '手机号格式不正确'
                 return
             }
@@ -129,19 +134,26 @@ export default {
         },
         //注册
         registerSubmit() {
-            if(!formValidate(this.question,'require') || !formValidate(this.answer,'require')){
+            if (!formValidate(this.question, 'require') || !formValidate(this.answer, 'require')) {
                 this.errMsg = '请填写密保问题和答案'
                 return
             }
-            let params = {
+            const params = {
                 username: this.username,
                 password: this.password,
-                email: this.email,
                 phone: this.phone,
+                email: this.email,
                 question: this.question,
                 answer: this.answer
             }
-            console.log(params)
+            register(params).then(res => {
+                if (res.status == 0) {
+                    this.$router.push('/login')
+                } else {
+                    this.$toast(res.msg)
+                    this.errMsg = res.msg
+                }
+            })
         },
         closeSecurity() {
             this.securityShow = false
@@ -159,128 +171,130 @@ export default {
 <style lang="scss" scoped>
 @import '../../common/style/mixin';
 
-.page {
-    padding: 0 50px;
-    width: 100%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+.register {
+    .page {
+        padding: 0 50px;
+        width: 100%;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
 
-    .register-page {
-        margin-top: 60px;
+        .register-page {
+            margin-top: 60px;
 
-        .register-wrap {
-            width: 100%;
-
-            .register-text {
-                @include fj;
+            .register-wrap {
                 width: 100%;
-                height: 60px;
-                line-height: 60px;
-                padding: 20px 0;
-                margin-top: 20px;
-                border-bottom: 1px solid #dcdcdc;
 
-                .iconfont {
-                    font-size: 26px;
-                    color: #CCCCCC;
+                .register-text {
+                    @include fj;
+                    width: 100%;
+                    height: 60px;
+                    line-height: 60px;
+                    padding: 20px 0;
+                    margin-top: 20px;
+                    border-bottom: 1px solid #dcdcdc;
 
-                    &.eye {
-                        padding: 0 30px;
-                        font-size: 40px;
-                        border-right: 1px solid #dcdcdc;
+                    .iconfont {
+                        font-size: 26px;
+                        color: #CCCCCC;
+
+                        &.eye {
+                            padding: 0 30px;
+                            font-size: 40px;
+                            border-right: 1px solid #dcdcdc;
+                        }
+                    }
+
+                    input {
+                        width: 100%;
+                        height: 100%;
+                        margin-right: 20px;
+                        line-height: 60px;
+                        color: #222;
+                        font-size: 32px;
+                    }
+
+                    span {
+                        padding-left: 20px;
+                        font-size: 30px;
+                    }
+
+                    div {
+                        display: flex;
                     }
                 }
-
-                input {
-                    width: 100%;
-                    height: 100%;
-                    margin-right: 20px;
-                    line-height: 60px;
-                    color: #222;
-                    font-size: 32px;
-                }
-
-                span {
-                    padding-left: 20px;
-                    font-size: 30px;
-                }
-
-                div {
-                    display: flex;
-                }
             }
         }
-    }
 
-    .register-error {
-        width: 100%;
-        height: 40px;
-        line-height: 40px;
-        padding: 30px 0;
-        color: $red;
-        font-size: 26px;
-    }
-
-    .register-button {
-        width: 100%;
-        height: 100px;
-        text-align: center;
-        line-height: 100px;
-        color: #fff;
-        font-size: 32px;
-        background: rgba(246, 53, 21, .5);
-        @include borderRadius(60px);
-
-        &.active {
-            background: rgb(246, 53, 21)
-        }
-    }
-
-    .set-security {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        padding: 0 30px;
-        z-index: 100;
-        background: #fff;
-        @include boxSizing;
-
-        p {
-            font-size: 30px;
-            color: #999;
-            padding-top: 30px;
-        }
-
-        .set-security-head {
-            position: relative;
+        .register-error {
             width: 100%;
-            height: 88px;
+            height: 40px;
+            line-height: 40px;
+            padding: 30px 0;
+            color: $red;
+            font-size: 26px;
+        }
+
+        .register-button {
+            width: 100%;
+            height: 100px;
             text-align: center;
-            line-height: 88px;
-            font-size: 34px;
+            line-height: 100px;
+            color: #fff;
+            font-size: 32px;
+            background: rgba(246, 53, 21, .5);
+            @include borderRadius(60px);
+
+            &.active {
+                background: rgb(246, 53, 21)
+            }
+        }
+
+        .set-security {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0 30px;
+            z-index: 100;
+            background: #fff;
             @include boxSizing;
 
-            .iconfont {
-                position: absolute;
-                left: 0;
-                top: 0;
-                font-size: 50px;
-                font-weight: bold;
+            p {
+                font-size: 30px;
+                color: #999;
+                padding-top: 30px;
+            }
+
+            .set-security-head {
+                position: relative;
+                width: 100%;
+                height: 88px;
+                text-align: center;
+                line-height: 88px;
+                font-size: 34px;
+                @include boxSizing;
+
+                .iconfont {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    font-size: 50px;
+                    font-weight: bold;
+                }
             }
         }
-    }
 
-    .slide-enter-active,
-    .slide-leave-active {
-        transition: all 0.5s;
-    }
+        .slide-enter-active,
+        .slide-leave-active {
+            transition: all 0.5s;
+        }
 
-    .slide-enter,
-    .slide-leave-to {
-        transform: translate3d(100%, 0, 0);
+        .slide-enter,
+        .slide-leave-to {
+            transform: translate3d(100%, 0, 0);
+        }
     }
 }
 </style>

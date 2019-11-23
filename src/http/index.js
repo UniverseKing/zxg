@@ -1,6 +1,8 @@
 import axios from 'axios'
 import { Toast } from 'vant'
 
+import qs from 'qs'
+
 // 配置请求的根域名
 axios.defaults.baseURL = 'http://www.lovegf.cn:9527/api/'
 // axios.defaults.baseURL = 'http://127.0.0.1:9527/api/'
@@ -51,7 +53,7 @@ export const getFloors = () => {
  * 商品列表
  */
 export const getProcuctList = (params) => {
-    return axios.get('/product/list',{
+    return axios.get('/product/list', {
         params
     }).then(res => {
         const { data } = res
@@ -67,7 +69,7 @@ export const getProcuctList = (params) => {
  * 商品详情
  */
 export const getProcuctDetail = (params) => {
-    return axios.get('/product/detail',{
+    return axios.get('/product/detail', {
         params
     }).then(res => {
         const { data } = res
@@ -90,5 +92,25 @@ export const getcategoryData = () => {
         } else {
             Toast.fail(data.msg)
         }
+    })
+}
+
+/**
+ * 登录
+ */
+export const login = (params) => {
+    return axios.post('/login', qs.stringify(params)).then(res => {
+        const { data } = res
+        return data
+    })
+}
+
+/**
+ * 注册
+ */
+export const register = (params) => {
+    return axios.post('/register', qs.stringify(params)).then(res => {
+        const { data } = res
+        return data
     })
 }

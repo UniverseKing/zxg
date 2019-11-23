@@ -23,10 +23,10 @@
             </div>
             <!-- 错误提示 -->
             <div class="login-error">{{errMsg}}</div>
-            <button class="login-button" :class="{'active' : removeSpace(username)&&removeSpace(password)}">登 录</button>
+            <button class="login-button" :class="{'active' : removeSpace(username)&&removeSpace(password)}" @click="postLogin">登 录</button>
             <!-- 快捷导航 -->
             <div class="quick-nav">
-                <router-link tag="span" class="register-button" to="./register">快速注册</router-link>
+                <router-link tag="span" class="register-button" to="/register">快速注册</router-link>
             </div>
             <!-- 其他登录方式 -->
             <div class="other-login">
@@ -57,6 +57,9 @@ import zHeader from '@/components/common/z-header.vue'
 import {
     removeSpace
 } from "@/common/js/util";
+import {
+    login
+} from '@/http/index.js'
 export default {
     data() {
         return {
@@ -90,6 +93,24 @@ export default {
         },
         removeSpace(value) {
             return removeSpace(value)
+        },
+        postLogin() {
+            if (!removeSpace(this.username) || !removeSpace(this.password)) {
+                return
+            }
+            const params = {
+                username: this.username,
+                password: this.password
+            }
+            login(params).then(res => {
+                if (res.status == 0) {
+                    localStorage.setItem('zxgToken', res.token)
+                    this.$router.replace('/user')
+                } else {
+                    this.$toast(res.msg)
+                    this.errMsg = res.msg
+                }
+            })
         }
     },
     components: {
