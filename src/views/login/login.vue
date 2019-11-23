@@ -23,7 +23,7 @@
             </div>
             <!-- 错误提示 -->
             <div class="login-error">{{errMsg}}</div>
-            <button class="login-button" :class="{'active' : username.trim()&&password.trim()}">登 录</button>
+            <button class="login-button" :class="{'active' : removeSpace(username)&&removeSpace(password)}">登 录</button>
             <!-- 快捷导航 -->
             <div class="quick-nav">
                 <router-link tag="span" class="register-button" to="./register">快速注册</router-link>
@@ -54,6 +54,9 @@
 
 <script>
 import zHeader from '@/components/common/z-header.vue'
+import {
+    removeSpace
+} from "@/common/js/util";
 export default {
     data() {
         return {
@@ -84,6 +87,9 @@ export default {
             $type === 'password' ? value = 'text' : value = 'password'
             this.$refs.passwordText.setAttribute('type', value)
             this.passwordType = !this.passwordType
+        },
+        removeSpace(value) {
+            return removeSpace(value)
         }
     },
     components: {

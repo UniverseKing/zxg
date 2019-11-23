@@ -9,6 +9,8 @@ import user from '@/views/user/user.vue'
 import productList from '@/views/product-list/product-list.vue'
 import productDetail from '@/views/product-detail/product-detail.vue'
 import login from '@/views/login/login.vue'
+import register from '@/views/register/register.vue'
+import forgetpwd from '@/views/forget-password/forget-password.vue'
 
 const routes = [
   {
@@ -62,6 +64,20 @@ const routes = [
     component: login,
     meta: {
       index: 2
+    }
+  },
+  {
+    path: '/register',
+    component: register,
+    meta: {
+      index: 3
+    }
+  },
+  {
+    path: '/forget-password',
+    component: forgetpwd,
+    meta: {
+      index: 3
     }
   }
 ]
