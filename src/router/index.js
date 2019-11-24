@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
+import store from '@/store'
+
 import home from '@/views/home/home.vue'
 import category from '@/views/category/category.vue'
 import shopcart from '@/views/shopcart/shopcart.vue'
@@ -36,14 +38,16 @@ const routes = [
     path: '/shopcart',
     component: shopcart,
     meta: {
-      index: 1
+      index: 1,
+      auth: true
     }
   },
   {
     path: '/user',
     component: user,
     meta: {
-      index: 1
+      index: 1,
+      auth: true
     }
   },
   {
@@ -85,13 +89,30 @@ const routes = [
     path: '/profile',
     component: profile,
     meta: {
-      index: 2
+      index: 2,
+      auth: true
     }
   }
 ]
 
 const router = new VueRouter({
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  // 需要验证的路由
+  if (to.meta.auth) {
+    // 获取用户登录信息
+    const userinfo = store.state.userinfo
+    if (userinfo) {
+      next()
+    } else {
+      next('/login')
+    }
+  } else {
+    // 不需要验证的路由
+    next()
+  }
 })
 
 export default router

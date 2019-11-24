@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     // 定义保存数据的对象
-    userinfo:{}
+    userinfo:null
   },
   mutations: {
     // 定义用于更新数据的方法
