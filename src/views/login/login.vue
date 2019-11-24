@@ -104,7 +104,7 @@ export default {
             }
             login(params).then(res => {
                 if (res.status == 0) {
-                    localStorage.setItem('zxgToken', res.token)
+                    localStorage.setItem('zxgToken', res.data.token)
                     this.$router.replace('/user')
                 } else {
                     this.$toast(res.msg)

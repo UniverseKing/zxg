@@ -2,13 +2,16 @@
 <div class="home-container">
     <!-- header区域 -->
     <header class="home-header wrap" :class="{'active' : headerActive}">
-        <router-link to="/category" tag="i" class="iconfont icon-caidan"></router-link >
+        <router-link to="/category" tag="i" class="iconfont icon-caidan"></router-link>
         <div class="header-search">
             <span class="app-name">G</span>
             <i class="iconfont icon-search"></i>
             <span class="search-title">11.11随心所欲Go</span>
         </div>
-        <router-link to="/login" tag="span">登录</router-link>
+        <router-link to="/login" tag="span" v-if="!isLogin">登录</router-link>
+        <router-link tag="span" to="./user" v-else>
+            <i class="iconfont icon-iconyonghu"></i>
+        </router-link>
     </header>
     <!-- 轮播图区域 -->
     <van-swipe :autoplay="3000" indicator-color="white" class="swiper-container">
@@ -50,7 +53,8 @@ import tabBar from '@/components/tabBar'
 import {
     getsliders,
     getCategories,
-    getFloors
+    getFloors,
+    getUserInfo
 } from '@/http/index.js'
 export default {
     data() {
@@ -58,8 +62,14 @@ export default {
             sliderList: [],
             categoryList: [],
             floorList: [],
-            headerActive: false
+            headerActive: false,
+            isLogin: false
         }
+    },
+    beforeCreate() {
+        getUserInfo().then(res => {
+            res.status == 0 ? this.isLogin = true : this.isLogin = false
+        })
     },
     created() {
         this.fetchSliders()

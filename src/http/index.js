@@ -7,6 +7,17 @@ import qs from 'qs'
 axios.defaults.baseURL = 'http://www.lovegf.cn:9527/api/'
 // axios.defaults.baseURL = 'http://127.0.0.1:9527/api/'
 
+axios.interceptors.request.use(function (config) {
+    let token = localStorage.getItem('zxgToken')
+    if (token) {
+        config.headers['Authorization'] = token
+    }
+    return config;
+}, function (error) {
+
+    return Promise.reject(error);
+});
+
 /**
  * 轮播图
  */
@@ -99,7 +110,7 @@ export const getcategoryData = () => {
  * 登录
  */
 export const login = (params) => {
-    return axios.post('/login', qs.stringify(params)).then(res => {
+    return axios.post('/user/login', qs.stringify(params)).then(res => {
         const { data } = res
         return data
     })
@@ -109,8 +120,32 @@ export const login = (params) => {
  * 注册
  */
 export const register = (params) => {
-    return axios.post('/register', qs.stringify(params)).then(res => {
+    return axios.post('/user/register', qs.stringify(params)).then(res => {
         const { data } = res
         return data
+    })
+}
+
+/**
+ * 获取用户信息
+ */
+export const getUserInfo = () => {
+    return axios.get('/user/info').then(res => {
+        const { data } = res
+        return data
+    })
+}
+
+/**
+ * 推荐商品
+ */
+export const getRecommend = () => {
+    return axios.get('/product/recommend').then(res => {
+        const { data } = res
+        if (data.status == 0) {
+            return data.data
+        } else {
+            Toast.fail(data.msg)
+        }
     })
 }
