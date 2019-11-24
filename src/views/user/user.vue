@@ -9,9 +9,9 @@
             <div class="info">
                 <img src="@/assets/user.png" />
                 <div>
-                    <p>zxx</p>
-                    <span class="name">用户名：zxx</span>
-                    <span>13312345678</span>
+                    <p>{{$store.state.userinfo.username}}</p>
+                    <span class="name">用户名：{{$store.state.userinfo.username}}</span>
+                    <span>{{$store.state.userinfo.phone}}</span>
                 </div>
                 <a href="#" class="account-management">
                     <i class="iconfont icon-shezhi"></i>账号管理
@@ -77,6 +77,9 @@ export default {
         return {
             recommendList: []
         }
+    },
+    beforeCreate(){
+        this.$store.commit('setUserInfo',JSON.parse(localStorage.getItem('userinfo')))
     },
     created(){
         this.fecthRecommend()

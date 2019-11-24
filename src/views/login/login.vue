@@ -58,7 +58,8 @@ import {
     removeSpace
 } from "@/common/js/util";
 import {
-    login
+    login,
+    getUserInfo
 } from '@/http/index.js'
 export default {
     data() {
@@ -105,7 +106,12 @@ export default {
             login(params).then(res => {
                 if (res.status == 0) {
                     localStorage.setItem('zxgToken', res.data.token)
-                    this.$router.replace('/user')
+                    getUserInfo().then(res => {
+                        if (res.status != 0) return;
+                        this.$store.commit('setUserInfo', res.data)
+                        this.$router.replace('/user')
+                    })
+
                 } else {
                     this.$toast(res.msg)
                     this.errMsg = res.msg

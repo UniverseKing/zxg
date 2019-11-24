@@ -69,6 +69,8 @@ export default {
     beforeCreate() {
         getUserInfo().then(res => {
             res.status == 0 ? this.isLogin = true : this.isLogin = false
+            if(res.status != 0)  return;
+            this.$store.commit('setUserInfo',res.data)
         })
     },
     created() {
