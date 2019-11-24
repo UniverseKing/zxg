@@ -1,7 +1,11 @@
 <template>
 <div class="user-box">
     <!-- header区域 -->
-    <z-header>我的知心购</z-header>
+    <header class="user-head">
+        <i class="iconfont icon-left" @click="goBack"></i>
+        <span>我的ZXGO</span>
+        <i class="iconfont icon-More"></i>
+    </header>
     <!-- 页面核心区域 -->
     <section class="user-page">
         <!-- 用户信息 -->
@@ -13,9 +17,9 @@
                     <span class="name">用户名：{{$store.state.userinfo.username}}</span>
                     <span>{{$store.state.userinfo.phone}}</span>
                 </div>
-                <a href="#" class="account-management">
+                <router-link to="/profile" class="account-management">
                     <i class="iconfont icon-shezhi"></i>账号管理
-                </a>
+                </router-link>
             </div>
         </div>
         <!-- 订单 -->
@@ -68,7 +72,6 @@
 
 <script>
 import tabBar from '@/components/tabBar'
-import zHeader from '@/components/common/z-header.vue'
 import {
     getRecommend
 } from '@/http/index.js'
@@ -78,10 +81,10 @@ export default {
             recommendList: []
         }
     },
-    beforeCreate(){
-        this.$store.commit('setUserInfo',JSON.parse(localStorage.getItem('userinfo')))
+    beforeCreate() {
+        this.$store.commit('setUserInfo', JSON.parse(localStorage.getItem('userinfo')))
     },
-    created(){
+    created() {
         this.fecthRecommend()
     },
     methods: {
@@ -89,11 +92,13 @@ export default {
             getRecommend().then(res => {
                 this.recommendList = res
             })
+        },
+        goBack(){
+            this.$router.replace('/')
         }
     },
     components: {
-        tabBar,
-        zHeader
+        tabBar
     }
 }
 </script>
@@ -103,6 +108,21 @@ export default {
 
 .user-box {
     background: #F7F7F7;
+
+    .user-head {
+        @include fj;
+        width: 100%;
+        height: 88px;
+        padding: 0 20px;
+        line-height: 88px;
+        font-size: 30px;
+        @include boxSizing;
+        border-bottom: 1px solid #dcdcdc;
+
+        .iconfont {
+            font-size: 44px;
+        }
+    }
 
     .user-info {
         width: 94%;

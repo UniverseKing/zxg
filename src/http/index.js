@@ -137,6 +137,16 @@ export const getUserInfo = () => {
 }
 
 /**
+ * 退出登录
+ */
+export const logout = ()=>{
+    return axios.post('/user/logout').then(res => {
+        const { data } = res
+        return data
+    })
+}
+
+/**
  * 推荐商品
  */
 export const getRecommend = () => {

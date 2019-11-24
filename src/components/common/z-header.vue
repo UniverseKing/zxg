@@ -27,6 +27,7 @@
         padding: 0 20px;
         font-size: 34px;
         @include boxSizing;
+        border-bottom: 1px solid #f7f7f7;
         .iconfont {
             position: absolute;
             left: 20px;

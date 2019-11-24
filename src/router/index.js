@@ -11,6 +11,7 @@ import productDetail from '@/views/product-detail/product-detail.vue'
 import login from '@/views/login/login.vue'
 import register from '@/views/register/register.vue'
 import forgetpwd from '@/views/forget-password/forget-password.vue'
+import profile from '@/views/profile/profile.vue'
 
 const routes = [
   {
@@ -78,6 +79,13 @@ const routes = [
     component: forgetpwd,
     meta: {
       index: 3
+    }
+  },
+  {
+    path: '/profile',
+    component: profile,
+    meta: {
+      index: 2
     }
   }
 ]
