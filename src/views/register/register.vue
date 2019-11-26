@@ -180,7 +180,7 @@ export default {
         box-sizing: border-box;
 
         .register-page {
-            margin-top: 60px;
+            margin-top: 144px;
 
             .register-wrap {
                 width: 100%;

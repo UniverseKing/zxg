@@ -52,13 +52,13 @@
         <van-goods-action-button type="danger" text="立即购买" />
     </van-goods-action>
     <!-- SKU 商品规格 -->
-    <van-sku v-model="show" :sku="sku" :goods="goods" @buy-clicked="onBuyClicked" @add-cart="onAddCartClicked" />
+    <van-sku v-model="show" :sku="sku" :goods="goods" @buy-clicked="onBuyClicked" @add-cart="onAddCartClicked" @stepper-change = 'onStepperChange' />
 </div>
 </template>
 
 <script>
 import {
-    getProcuctDetail
+    getProcuctDetail,submitToCar
 } from "@/http/index.js";
 export default {
     data() {
@@ -109,18 +109,32 @@ export default {
                 title: "测试商品",
                 // 默认商品 sku 缩略图
                 picture: "http://img.happymmall.com/570186f3-c0d2-4336-a1b7-3e1aff88f73a.jpg"
-            }
+            },
+            count:1
         };
     },
     created() {
         this.fetchProductDetail();
     },
     methods: {
+        onStepperChange(value){
+            this.count = value
+        },
         onBuyClicked() {
             // console.log("onBuyClicked");
         },
         onAddCartClicked() {
-            // console.log("onAddCartClicked");
+            const params = {
+                productId:this.id,
+                count:this.count
+            }
+            submitToCar(params).then(res=>{
+                if(res.status == 0){
+                    this.$router.push('/shopcart')
+                }else{
+                    this.$toast(res.msg)
+                }
+            })
         },
         addToCar() {
             this.show = true;
@@ -138,6 +152,8 @@ export default {
                         imgUrl: imageHost + item
                     });
                 });
+                this.goods.title = res.name
+                this.goods.picture = res.imageHost + res.mainImage
             });
         },
         goBack() {
@@ -145,7 +161,6 @@ export default {
         },
         scrollToView(e) {
             let $type = e.target.getAttribute("data-type");
-            // console.log($type);
             switch ($type) {
                 case "product":
                     this.navIndex = 0;

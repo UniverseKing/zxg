@@ -75,7 +75,8 @@ export default {
 .profile {
     .profile-content {
         width: 100%;
-
+        margin-top: 88px;
+        
         .profile-title {
             width: 100%;
             padding: 30px;

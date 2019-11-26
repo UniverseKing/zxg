@@ -139,7 +139,7 @@ export const getUserInfo = () => {
 /**
  * 退出登录
  */
-export const logout = ()=>{
+export const logout = () => {
     return axios.post('/user/logout').then(res => {
         const { data } = res
         return data
@@ -157,5 +157,39 @@ export const getRecommend = () => {
         } else {
             Toast.fail(data.msg)
         }
+    })
+}
+
+/**
+ * 获取购物车数据
+ */
+export const getCarList = () => {
+    return axios.get('/cart/list').then(res => {
+        const { data } = res
+        if (data.status == 0) {
+            return data.data
+        } else {
+            Toast.fail(data.msg)
+        }
+    })
+}
+
+/**
+ * 加入购物车
+ */
+export const submitToCar = (params) => {
+    return axios.post('/cart/add', qs.stringify(params)).then(res => {
+        const { data } = res
+        return data
+    })
+}
+
+/**
+ * 删除购物车数据
+ */
+export const delCar = (params) => {
+    return axios.post('/cart/del', qs.stringify(params)).then(res => {
+        const { data } = res
+        return data
     })
 }

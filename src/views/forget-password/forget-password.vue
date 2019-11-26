@@ -89,7 +89,7 @@ export default {
 
     .forget-content {
         width: 100%;
-        margin-top: 100px;
+        margin-top: 188px;
 
         &.slide-question {
             div {

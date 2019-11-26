@@ -134,9 +134,10 @@ export default {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    margin-top: 88px;
 
     .login-page {
-        margin-top: 60px;
+        margin-top: 144px;
 
         .login-wrap {
             width: 100%;

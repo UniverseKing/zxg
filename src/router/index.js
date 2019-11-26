@@ -2,8 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
-import store from '@/store'
-
 import home from '@/views/home/home.vue'
 import category from '@/views/category/category.vue'
 import shopcart from '@/views/shopcart/shopcart.vue'
@@ -103,8 +101,11 @@ router.beforeEach((to, from, next) => {
   // 需要验证的路由
   if (to.meta.auth) {
     // 获取用户登录信息
-    const userinfo = store.state.userinfo
+    const userinfo = JSON.parse(localStorage.getItem('userinfo'))
+    console.log(userinfo)
     if (userinfo) {
+      console.log(1);
+      
       next()
     } else {
       next('/login')

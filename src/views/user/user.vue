@@ -1,17 +1,13 @@
 <template>
 <div class="user-box">
     <!-- header区域 -->
-    <header class="user-head">
-        <i class="iconfont icon-left" @click="goBack"></i>
-        <span>我的ZXGO</span>
-        <i class="iconfont icon-More"></i>
-    </header>
+    <z-header>我的知心购</z-header>
     <!-- 页面核心区域 -->
     <section class="user-page">
         <!-- 用户信息 -->
         <div class="user-info">
             <div class="info">
-                <img src="@/assets/user.png" />
+                <img src="//img11.360buyimg.com/jdphoto/s120x122_jfs/t5683/191/7076936752/5123/834e5571/596dd62bN7a8affc5.png" />
                 <div>
                     <p>{{$store.state.userinfo.username}}</p>
                     <span class="name">用户名：{{$store.state.userinfo.username}}</span>
@@ -71,6 +67,7 @@
 </template>
 
 <script>
+import zHeader from '@/components/common/z-header.vue'
 import tabBar from '@/components/tabBar'
 import {
     getRecommend
@@ -93,12 +90,13 @@ export default {
                 this.recommendList = res
             })
         },
-        goBack(){
+        goBack() {
             this.$router.replace('/')
         }
     },
     components: {
-        tabBar
+        tabBar,
+        zHeader
     }
 }
 </script>
@@ -109,189 +107,177 @@ export default {
 .user-box {
     background: #F7F7F7;
 
-    .user-head {
-        @include fj;
-        width: 100%;
-        height: 88px;
-        padding: 0 20px;
-        line-height: 88px;
-        font-size: 30px;
-        @include boxSizing;
-        border-bottom: 1px solid #dcdcdc;
+    .user-page {
+        margin-top: 88px;
+        .user-info {
+            width: 94%;
+            margin: 20px 3%;
+            height: 230px;
+            background: linear-gradient(90deg, #eb3c3c, #ff7459);
+            box-shadow: 0 2px 5px rgba(255, 98, 98, .4);
+            @include borderRadius(12px);
 
-        .iconfont {
-            font-size: 44px;
-        }
-    }
-
-    .user-info {
-        width: 94%;
-        margin: 20px 3%;
-        height: 230px;
-        background: linear-gradient(90deg, #eb3c3c, #ff7459);
-        box-shadow: 0 2px 5px rgba(255, 98, 98, .4);
-        @include borderRadius(12px);
-
-        .info {
-            position: relative;
-            display: flex;
-            width: 100%;
-            height: 100%;
-            padding: 50px 30px;
-            @include boxSizing;
-
-            img {
-                width: 120px;
-                height: 120px;
-            }
-
-            div {
+            .info {
+                position: relative;
                 display: flex;
-                flex-direction: column;
-                margin-left: 20px;
-                line-height: 40px;
-                font-size: 28px;
-                color: #fff;
+                width: 100%;
+                height: 100%;
+                padding: 50px 30px;
+                @include boxSizing;
 
-                .name {
-                    color: hsla(0, 0%, 100%, .7);
-                    font-size: 26px;
-                    padding: 5px 0;
+                img {
+                    width: 120px;
+                    height: 120px;
                 }
 
-                span {
-                    &:nth-child(1) {
-                        color: #999;
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    margin-left: 20px;
+                    line-height: 40px;
+                    font-size: 28px;
+                    color: #fff;
+
+                    .name {
+                        color: hsla(0, 0%, 100%, .7);
                         font-size: 26px;
+                        padding: 5px 0;
+                    }
+
+                    span {
+                        &:nth-child(1) {
+                            color: #999;
+                            font-size: 26px;
+                        }
+                    }
+                }
+
+                .account-management {
+                    position: absolute;
+                    top: 20px;
+                    right: 40px;
+                    font-size: 26px;
+                    color: rgba(76, 0, 0, .7);
+
+                    .iconfont {
+                        padding-right: 10px;
+                        font-size: 28px;
+                        color: rgba(76, 0, 0, .7);
                     }
                 }
             }
+        }
 
-            .account-management {
-                position: absolute;
-                top: 20px;
-                right: 40px;
-                font-size: 26px;
-                color: rgba(76, 0, 0, .7);
+        .user-menu {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            height: 150px;
+            background: #fff;
+
+            .menu-item {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                height: 100px;
+                text-align: center;
+                margin: 25px 0;
 
                 .iconfont {
-                    padding-right: 10px;
-                    font-size: 28px;
-                    color: rgba(76, 0, 0, .7);
+                    font-size: 50px;
+                    color: #DD9E58;
+
+                    &.icon-money {
+                        font-size: 44px;
+                        padding-top: 6px;
+                    }
+
+                    &.icon-icon1 {
+                        @extend .icon-money;
+                        color: $red;
+                    }
+                }
+
+                span {
+                    padding-top: 10px;
+                    font-size: 24px;
+                    color: #000;
                 }
             }
         }
-    }
 
-    .user-menu {
-        display: flex;
-        justify-content: space-around;
-        width: 100%;
-        height: 150px;
-        background: #fff;
+        .user-fork {
+            margin: 30px 0;
+            @extend .user-menu;
 
-        .menu-item {
+            .fork-item {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                height: 100px;
+                margin: 30px 0;
+                text-align: center;
+
+                i {
+                    font-style: normal;
+                    font-weight: bold;
+                    padding: 10px 0;
+                    font-size: 28px;
+                }
+            }
+        }
+
+        .recommend-title {
+            width: 100%;
+            height: 90px;
+            padding-left: 20px;
+            line-height: 90px;
+            background: #fff;
+            @include boxSizing;
+        }
+
+        .recommend-list {
             display: flex;
-            flex-direction: column;
-            flex: 1;
-            height: 100px;
-            text-align: center;
-            margin: 25px 0;
+            flex-shrink: 0;
+            flex-wrap: wrap;
+            width: 100%;
+            margin-top: 30px;
+            padding-bottom: 150px;
+            @include boxSizing;
+            background: #fff;
 
-            .iconfont {
-                font-size: 50px;
-                color: #DD9E58;
+            .recommend-item {
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+                padding: 20px;
+                @include boxSizing;
+                border-bottom: 1px solid #dcdcdc;
 
-                &.icon-money {
-                    font-size: 44px;
-                    padding-top: 6px;
+                &:nth-child(2n-1) {
+                    border-right: 1px solid #dcdcdc;
                 }
 
-                &.icon-icon1 {
-                    @extend .icon-money;
+                img {
+                    width: 100%;
+                    height: 290px;
+                    margin: 0 auto;
+                }
+
+                p {
+                    height: 60px;
+                    padding: 20px 0;
+                    font-size: 26px;
+                    line-height: 40px;
+                    color: #333;
+                    overflow: hidden;
+                }
+
+                i {
+                    font-style: normal;
+                    font-size: 32px;
                     color: $red;
                 }
-            }
-
-            span {
-                padding-top: 10px;
-                font-size: 24px;
-                color: #000;
-            }
-        }
-    }
-
-    .user-fork {
-        margin: 30px 0;
-        @extend .user-menu;
-
-        .fork-item {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            height: 100px;
-            margin: 30px 0;
-            text-align: center;
-
-            i {
-                font-style: normal;
-                font-weight: bold;
-                padding: 10px 0;
-                font-size: 28px;
-            }
-        }
-    }
-
-    .recommend-title {
-        width: 100%;
-        height: 90px;
-        padding-left: 20px;
-        line-height: 90px;
-        background: #fff;
-        @include boxSizing;
-    }
-
-    .recommend-list {
-        display: flex;
-        flex-shrink: 0;
-        flex-wrap: wrap;
-        width: 100%;
-        margin-top: 30px;
-        padding-bottom: 150px;
-        @include boxSizing;
-        background: #fff;
-
-        .recommend-item {
-            display: flex;
-            flex-direction: column;
-            width: 50%;
-            padding: 20px;
-            @include boxSizing;
-            border-bottom: 1px solid #dcdcdc;
-
-            &:nth-child(2n-1) {
-                border-right: 1px solid #dcdcdc;
-            }
-
-            img {
-                width: 100%;
-                height: 290px;
-                margin: 0 auto;
-            }
-
-            p {
-                height: 60px;
-                padding: 20px 0;
-                font-size: 26px;
-                line-height: 40px;
-                color: #333;
-                overflow: hidden;
-            }
-
-            i {
-                font-style: normal;
-                font-size: 32px;
-                color: $red;
             }
         }
     }

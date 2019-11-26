@@ -98,8 +98,8 @@ export default {
     top: 0;
     @include fj;
     width: 100%;
-    height: 100px;
-    line-height: 100px;
+    height: 88px;
+    line-height: 88px;
     padding: 0 30px;
     @include boxSizing;
     font-size: 30px;
