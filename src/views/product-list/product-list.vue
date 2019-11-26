@@ -111,14 +111,14 @@ export default {
             this.pageNum = 1
             setTimeout(() => {
                 this.fetchProductList(done)
-            }, 1500)
+            }, 1000)
         },
         infinite(done) {
             // console.log('上拉')
             this.pageNum++
             setTimeout(() => {
                 this.fetchProductList(done)
-            }, 1500)
+            }, 1000)
         },
         fetchProductList(done) {
             const params = {

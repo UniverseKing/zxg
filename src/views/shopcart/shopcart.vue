@@ -1,17 +1,29 @@
 <template>
 <div class="shopcart">
-    <z-header>购物车</z-header>
+    <z-header :sm='true'>购物车</z-header>
     <section class="shopcart-page">
         <div class="shopcart-list">
             <shopcart-box v-for="(item) in carList" :key="item.id" :car='item' @refresh='refreshCar'></shopcart-box>
         </div>
+
+        <van-submit-bar :price="0" button-text="提交订单" @submit="onSubmit" v-if="carList.length>0">
+            <van-checkbox v-model="checked" checked-color="#F63515">全选</van-checkbox>
+        </van-submit-bar>
+
+        <div v-else>
+            <div class="shopcart-empty">
+                <img src="//img11.360buyimg.com/jdphoto/s180x180_jfs/t18163/292/540553659/74408/adeb7463/5a93c51cN3bb5e37b.png">
+                <p>购物车空空如也，去逛逛吧~</p>
+            </div>
+        </div>
+
     </section>
     <section class="recommend">
         <div class="recommend-title">
             <van-divider :style="{borderColor:'#ccc',padding:'0 16px'}">可能你还想要</van-divider>
         </div>
         <div class="recommend-list">
-            <div class="recommend-item" v-for="(item,index) in recommendList" :key="index">
+            <div class="recommend-item" v-for="(item,index) in recommendList" :key="index" @click="goProduct(item.id)">
                 <img :src="item.imageHost + item.mainImage">
                 <p>{{item.name}}</p> <i>￥ {{item.price}}</i>
             </div>
@@ -33,7 +45,8 @@ export default {
     data() {
         return {
             carList: [],
-            recommendList: []
+            recommendList: [],
+            checked: false
         }
     },
     created() {
@@ -41,13 +54,18 @@ export default {
         this.fetchRecommend()
     },
     methods: {
+        onSubmit() {
+
+        },
+        goProduct(id){
+            this.$router.push('/product/' + id)
+        },
         refreshCar(id) {
             const index = this.carList.findIndex(v => v.id == id)
-            this.carList.splice(index,1)
+            this.carList.splice(index, 1)
         },
         fetchCarList() {
             getCarList().then(res => {
-                console.log(res)
                 this.carList = res
             })
         },
@@ -72,6 +90,24 @@ export default {
     .shopcart-page {
         background: #f7f7f7;
         margin-top: 88px;
+
+        .van-submit-bar {
+            bottom: 100px;
+            background-color: #f7f7f7;
+        }
+
+        .shopcart-empty {
+            width: 100%;
+            padding: 60px 0;
+            text-align: center;
+            background: #F7F7F7;
+
+            p {
+                font-size: 30px;
+                padding-top: 20px;
+                color: rgba(51, 51, 51, .66);
+            }
+        }
     }
 
     .recommend {

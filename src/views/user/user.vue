@@ -1,7 +1,7 @@
 <template>
 <div class="user-box">
     <!-- header区域 -->
-    <z-header>我的知心购</z-header>
+    <z-header :sm='true'>我的知心购</z-header>
     <!-- 页面核心区域 -->
     <section class="user-page">
         <!-- 用户信息 -->

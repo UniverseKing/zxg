@@ -102,10 +102,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.auth) {
     // 获取用户登录信息
     const userinfo = JSON.parse(localStorage.getItem('userinfo'))
-    console.log(userinfo)
     if (userinfo) {
-      console.log(1);
-      
       next()
     } else {
       next('/login')
