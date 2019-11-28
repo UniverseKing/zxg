@@ -53,8 +53,7 @@ import tabBar from '@/components/tabBar'
 import {
     getsliders,
     getCategories,
-    getFloors,
-    getUserInfo
+    getFloors
 } from '@/http/index.js'
 export default {
     data() {
@@ -62,16 +61,13 @@ export default {
             sliderList: [],
             categoryList: [],
             floorList: [],
-            headerActive: false,
-            isLogin: false
+            headerActive: false
         }
     },
-    beforeCreate() {
-        getUserInfo().then(res => {
-            res.status == 0 ? this.isLogin = true : this.isLogin = false
-            if(res.status != 0)  return;
-            this.$store.commit('setUserInfo',res.data)
-        })
+    computed: {
+        isLogin() {
+            return this.$store.state.userinfo.username
+        }
     },
     created() {
         this.fetchSliders()

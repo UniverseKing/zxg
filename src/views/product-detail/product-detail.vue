@@ -47,18 +47,19 @@
     <!-- 商品导航  -->
     <van-goods-action>
         <van-goods-action-icon icon="chat-o" text="客服" />
-        <van-goods-action-icon icon="cart-o" text="购物车" info="5" />
+        <van-goods-action-icon icon="cart-o" text="购物车" :info="this.$store.getters.goodsCP.allCount" />
         <van-goods-action-button type="warning" text="加入购物车" @click.native="addToCar" />
         <van-goods-action-button type="danger" text="立即购买" />
     </van-goods-action>
     <!-- SKU 商品规格 -->
-    <van-sku v-model="show" :sku="sku" :goods="goods" @buy-clicked="onBuyClicked" @add-cart="onAddCartClicked" @stepper-change = 'onStepperChange' />
+    <van-sku v-model="show" :sku="sku" :goods="goods" @buy-clicked="onBuyClicked" @add-cart="onAddCartClicked" @stepper-change='onStepperChange' />
 </div>
 </template>
 
 <script>
 import {
-    getProcuctDetail,submitToCar
+    getProcuctDetail,
+    submitToCar
 } from "@/http/index.js";
 export default {
     data() {
@@ -110,14 +111,14 @@ export default {
                 // 默认商品 sku 缩略图
                 picture: "http://img.happymmall.com/570186f3-c0d2-4336-a1b7-3e1aff88f73a.jpg"
             },
-            count:1
+            count: 1
         };
     },
     created() {
         this.fetchProductDetail();
     },
     methods: {
-        onStepperChange(value){
+        onStepperChange(value) {
             this.count = value
         },
         onBuyClicked() {
@@ -125,14 +126,21 @@ export default {
         },
         onAddCartClicked() {
             const params = {
-                productId:this.id,
-                count:this.count
+                productId: this.id,
+                count: this.count
             }
-            submitToCar(params).then(res=>{
-                if(res.status == 0){
+            submitToCar(params).then(res => {
+                if (res.status == 0) {
+                    const goods = {
+                        id: this.id,
+                        count: this.count,
+                        price: this.productDetail.price,
+                        ischecked: false
+                    }
+                    this.$store.commit('addGoods', goods)
                     this.$router.push('/shopcart')
-                }else{
-                    this.$toast(res.msg)
+                } else {
+                    this.$router.push('/login')
                 }
             })
         },

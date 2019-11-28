@@ -7,12 +7,24 @@
 </template>
 
 <script>
+import {
+    getUserInfo
+} from '@/http'
 export default {
     // 监听路由的路径，可以通过不同的路径去选择不同的切换效果
     data() {
         return {
             transitionName: 'slide-left'
         }
+    },
+    created() {
+        getUserInfo().then(res => {
+            if (res.status == 0) {
+                this.$store.commit('setUserInfo', res.data)
+                this.$store.dispatch('fetchCars')
+            }
+        })
+
     },
     // 监听路由的路径，可以通过不同的路径去选择不同的切换效果
     watch: {

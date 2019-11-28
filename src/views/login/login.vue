@@ -109,6 +109,7 @@ export default {
                     getUserInfo().then(res => {
                         if (res.status != 0) return;
                         this.$store.commit('setUserInfo', res.data)
+                         this.$store.dispatch('fetchCars')
                         this.$router.replace('/user')
                     })
 

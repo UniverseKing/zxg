@@ -2,14 +2,14 @@
 <div class="shopcar-container">
     <van-swipe-cell :on-close="onClose">
         <div class="shopcart-box">
-            <van-checkbox v-model="checked" checked-color="#F63515"></van-checkbox>
+            <van-checkbox v-model="$store.state.cars[currentIndex].ischecked" checked-color="#F63515" v-if="$store.state.cars.length"></van-checkbox>
             <img :src="car.imageHost + car.mainImage">
             <div class="shopcart-item-info">
                 <p class="shopcart-name">{{car.name}}</p>
                 <p class="shopcart-subtitle">{{car.subtitle}}</p>
                 <div class="shopcart-stepper">
                     <span class="shopcart-price">￥{{car.price}}</span>
-                    <van-stepper v-model="value" />
+                    <van-stepper v-model="value" @change='countChange' />
                 </div>
             </div>
         </div>
@@ -21,10 +21,13 @@
 </template>
 
 <script>
-import { Dialog } from 'vant';
+import {
+    Dialog
+} from 'vant';
 import {
     delCar
 } from '@/http'
+
 export default {
     data() {
         return {
@@ -36,6 +39,12 @@ export default {
         this.value = this.car.count
     },
     methods: {
+        countChange(count){
+            this.$store.commit('updateGoodsCount',{
+                id:this.car.productId,
+                count:count
+            })
+        },
         onClose(clickPosition, instance) {
             switch (clickPosition) {
                 case 'left':
@@ -52,7 +61,7 @@ export default {
                         }
                         delCar(params).then(res => {
                             if (res.status == 0) {
-                                this.$emit('refresh',this.car.id)
+                                this.$emit('refresh', this.car.productId)
                                 instance.close();
 
                             } else {
@@ -64,7 +73,15 @@ export default {
             }
         }
     },
-    props: ['car']
+    props: {
+        car: {
+            type: Object
+        },
+        currentIndex: {
+            type: Number,
+            default: 0
+        }
+    }
 }
 </script>
 

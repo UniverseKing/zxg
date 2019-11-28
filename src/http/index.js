@@ -3,6 +3,9 @@ import { Toast } from 'vant'
 
 import qs from 'qs'
 
+import router from '@/router'
+import store from '@/store'
+
 // 配置请求的根域名
 axios.defaults.baseURL = 'http://www.lovegf.cn:9527/api/'
 // axios.defaults.baseURL = 'http://127.0.0.1:9527/api/'
@@ -15,6 +18,33 @@ axios.interceptors.request.use(function (config) {
     return config;
 }, function (error) {
 
+    return Promise.reject(error);
+});
+
+// 添加响应拦截器
+axios.interceptors.response.use(function (response) {
+    if (response.data.status == -2) {
+        localStorage.removeItem('zxgToken')
+        localStorage.removeItem('userinfo')
+        store.commit('clearUser')
+        store.commit('clearCars')
+
+        let path = location.hash
+        if(path.includes('?')){
+            path = path.slice(1,path.indexOf('?'))
+        }else{
+            path = path.slice(1)
+        }
+        const no_auth = ['/home','/category','/login','/register','/product-list']
+        if(no_auth.includes(path) || path.startsWith('/product')){
+            // router.replace('/home')
+        }else{
+            router.replace('/home')
+        }
+    }
+    return response;
+}, function (error) {
+    // 对响应错误做点什么
     return Promise.reject(error);
 });
 

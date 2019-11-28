@@ -3,11 +3,12 @@
     <z-header :sm='true'>购物车</z-header>
     <section class="shopcart-page">
         <div class="shopcart-list">
-            <shopcart-box v-for="(item) in carList" :key="item.id" :car='item' @refresh='refreshCar'></shopcart-box>
+            <shopcart-box v-for="(item,index) in carList" :key="item.id" :car='item' :currentIndex='index' @refresh='refreshCar'></shopcart-box>
         </div>
 
-        <van-submit-bar :price="0" button-text="提交订单" @submit="onSubmit" v-if="carList.length>0">
-            <van-checkbox v-model="checked" checked-color="#F63515">全选</van-checkbox>
+        <van-submit-bar :price="this.$store.getters.goodsCP.allPrice" button-text="提交订单" @submit="onSubmit" v-if="carList.length>0">
+            <van-checkbox v-model="checked" checked-color="#F63515" @click="change">全选</van-checkbox>
+            {{this.$store.getters.isAllChecked}}
         </van-submit-bar>
 
         <div v-else>
@@ -41,6 +42,9 @@ import {
     getCarList,
     getRecommend
 } from '@/http'
+import {
+    mapGetters
+} from 'vuex'
 export default {
     data() {
         return {
@@ -53,16 +57,31 @@ export default {
         this.fetchCarList()
         this.fetchRecommend()
     },
+    watch:{
+        isAllChecked(){
+            this.checked = this.isAllChecked
+        }
+    },
+    computed: mapGetters([
+        'isAllChecked'
+    ]),
     methods: {
+        change() {
+            console.log(this.checked)
+            this.$store.commit('updateGoodsChecked', !this.checked)
+        },
         onSubmit() {
 
         },
-        goProduct(id){
+        goProduct(id) {
             this.$router.push('/product/' + id)
         },
         refreshCar(id) {
-            const index = this.carList.findIndex(v => v.id == id)
+            const index = this.carList.findIndex(v => v.productId == id)
             this.carList.splice(index, 1)
+
+            // store中移出商品
+            this.$store.commit('removeGoods', id)
         },
         fetchCarList() {
             getCarList().then(res => {

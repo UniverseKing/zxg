@@ -60,7 +60,8 @@ export default {
                 if (res.status == 0) {
                     localStorage.removeItem('zxgToken')
                     localStorage.removeItem('userinfo')
-                    this.$store.commit('setUserInfo', null)
+                    this.$store.commit('clearUser')
+                    this.$store.commit('clearCars')
                     this.$router.replace('/')
                 }
             })
